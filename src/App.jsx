@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound';
 import PatientLayout from './pages/patient/PatientLayout';
 import DoctorSearch from './pages/patient/DoctorSearch';
 import MyAppointments from './pages/patient/MyAppointments';
+import DoctorDetail from './pages/patient/DoctorDetail';
 
 import DoctorLayout from './pages/doctor/DoctorLayout';
 import AvailabilityManager from './pages/doctor/AvailabilityManager';
@@ -61,6 +62,15 @@ export default function App() {
         <Route path="doctors" element={<Doctors />} />
         <Route path="appointments" element={<AdminAppointments />} />
       </Route>
+
+      <Route
+  path="/patient"
+  element={<ProtectedRoute allowedRoles={['PATIENT']}><PatientLayout /></ProtectedRoute>}
+>
+  <Route index element={<DoctorSearch />} />
+  <Route path="doctors/:id" element={<DoctorDetail />} />
+  <Route path="appointments" element={<MyAppointments />} />
+</Route>
 
       <Route path="*" element={<NotFound />} />
     </Routes>
